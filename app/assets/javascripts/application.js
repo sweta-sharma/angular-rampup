@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ./home
 //= require_tree .
 //= require_tree ../templates
-
+//= require_tree ./angular

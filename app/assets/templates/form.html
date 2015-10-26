@@ -9,7 +9,7 @@
     <div class="form-group col-lg-10">
         <label for="email" class="col-sm-2 control-label">Email</label>
         <div class="col-sm-6">
-            <input type="email" ng-model="editUser.user.email" class="form-control" id="email" placeholder="Email Here" required>
+            <input type="email" pattern="^.+@.+\..+$" ng-model="editUser.user.email" class="form-control" id="email" placeholder="Email Here" required>
         </div>
     </div>
 
