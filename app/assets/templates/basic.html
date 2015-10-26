@@ -1,0 +1,27 @@
+<div class="container well">
+    <div class="new">
+        <a ui-sref=".new"  ng-click="basic.formVisibility = true" class="btn btn-info" role="button">Add New Record</a>
+    </div>
+
+    <div ui-view ng-show="basic.formVisibility">
+    </div>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        <tr ng-repeat="user in basic.users">
+            <td>{{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>
+                <a ui-sref=".edit({id: user.id})" ng-click="basic.formVisibility = true; " class="btn btn-info" role="button">Update</a>
+                <a ng-click="basic.delete(user)" class="btn btn-info" role="button">Delete</a>
+            </td>
+        </tr>
+    </table>
+
+</div>
