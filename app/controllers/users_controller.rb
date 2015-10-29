@@ -15,16 +15,14 @@ class UsersController < ApplicationController
   def destroy
     user = User.find(params["id"])
     User.delete(user)
-    users = User.all
-    render json: users
+    render json: user
   end
 
   def create
     user = User.create(params["user"])
 
     if user.save
-      users = User.all
-      render json: users
+      render json: user
     end
   end
 
@@ -32,8 +30,7 @@ class UsersController < ApplicationController
     user = User.find(params["id"])
     user.update_attributes(params["user"])
     if user.save
-      users = User.all
-      render json: users
+      render json: user
     end
   end
 

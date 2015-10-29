@@ -1,20 +1,30 @@
-<form class="form-horizontal" role="form" form-name="userForm" ng-submit="editUser.save(); basic.formVisibility = false; basic.getUsers();">
-    <div class="form-group col-lg-10">
+<form class="form-horizontal" name="userForm">
+    <div class="form-group col-lg-10" ng-class="{error: userForm.name.$invalid && !userForm.name.$pristine}">
         <label for="name" class="col-sm-2 control-label">Name</label>
         <div class="col-sm-6">
-            <input type="text" ng-model="editUser.user.name" class="form-control" id="name" placeholder="Name Here" required>
+            <input type="text" name="name" ng-model="basic.user.name" class="form-control" id="name" placeholder="Name Here" required>
         </div>
+        <span ng-messages="userForm.name.$error" style="color:maroon" role="alert">
+            <span ng-message="required">Required</span>
+        </span>
     </div>
 
-    <div class="form-group col-lg-10">
+    <div class="form-group col-lg-10" ng-class="{error: userForm.email.$invalid && !userForm.email.$pristine}">
         <label for="email" class="col-sm-2 control-label">Email</label>
         <div class="col-sm-6">
-            <input type="email" pattern="^.+@.+\..+$" ng-model="editUser.user.email" class="form-control" id="email" placeholder="Email Here" required>
+            <input ng-pattern="/^.+@.+\..+$/" name="email" ng-model="basic.user.email" class="form-control" id="email" placeholder="Email Here" required>
         </div>
+        <span ng-messages="userForm.email.$error" style="color:maroon" role="alert">
+            <span ng-message="required">Required</span>
+            <span ng-message="pattern">Email should contain @ and . in order</span>
+        </span>
     </div>
 
     <div class="form-group col-lg-10">
-        <a ng-click="basic.formVisibility = false", class="btn">Cancel</a>
-        <input type="submit" class="btn btn-primary" value="Save">
+        <a ui-sref="basic" ng-click="basic.formVisibility = false", class="btn">Cancel</a>
+        <button ng-click="editUser.save();"
+                class="btn btn-primary"
+                ng-disabled="userForm.$invalid"
+                ng-bind="editUser.action"></button>
     </div>
 </form>

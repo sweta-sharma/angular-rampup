@@ -1,18 +1,44 @@
-<div class="container well">
+<div class="container ">
 
-    <form class="form-horizontal" role="form" form-name="records" ng-submit="advanced.fetch()">
-        <div class="form-group col-lg-10">
+    <form class="form-horizontal" role="form" name="records" ng-submit="advanced.fetch()">
+        <div class="form-group col-lg-10" ng-class="{error: records.number.$invalid && !records.number.$pristine}">
             <div class="col-sm-6">
-                <input type="number" min="1" max="100" ng-model="advanced.noOfRecords" class="form-control" placeholder="No of Records to be fetched" required>
+                <input type="number" ng-min="1" ng-max="100" name="number" ng-model="advanced.noOfRecords" class="form-control" placeholder="No of Records to be fetched" required>
             </div>
 
             <div class="col-sm-2">
-                <input type="submit" class="btn btn-primary" value="Fetch">
+                <button type="submit" class="btn btn-primary" ng-disabled="records.$invalid">Fetch</button>
             </div>
+
+            <span ng-messages="records.number.$error" style="color:maroon" role="alert">
+                <span ng-message="required">Required</span>
+                <span ng-message="number">Not a number</span>
+                <span ng-message="min">Number should be more than or equal to 1</span>
+                <span ng-message="max">Number should be less than or equal to 100</span>
+            </span>
 
         </div>
     </form>
 
-    <div ng-show="advanced.recordsVisible" >
+    <div class="form-horizontal col-lg-10">
+        <div class="form-group">
+                <div class="checkbox-inline" ng-repeat="record in advanced.records | unique: 'userId'">
+                    <input type="checkbox" ng-model="advanced.showUser[record.userId]">
+                    User Id:<span ng-bind="record.userId"></span>
+                </div>
+        </div>
+    </div>
+
+    <div class="col-sm-10">
+        <ul class="list-group">
+            <li class="list-group-item" ng-show="advanced.showUser[key]" ng-repeat="(key, value) in advanced.records | groupBy: 'userId'">
+                User Id: {{ key }}
+                <ul class="list-unstyled well" ng-repeat="record in value">
+                    <li>Title: {{ record.title }}</li>
+                    <li>Body: {{ record.body | limitTo:100 }}</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
 </div>
