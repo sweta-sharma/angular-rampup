@@ -1,4 +1,5 @@
 <div class="container well">
+    <div flash-message="5000" ></div>
     <div class="new">
         <a ui-sref=".new"  ng-click="basic.formVisibility = true" class="btn btn-info" role="button">Add New Record</a>
     </div>
@@ -13,10 +14,10 @@
             <th>Email</th>
             <th>Actions</th>
         </tr>
-        <tr ng-repeat="user in basic.users">
-            <td>{{user.id}}</td>
-            <td>{{user.name}}</td>
-            <td>{{user.email}}</td>
+        <tr ng-repeat="user in basic.users track by $index">
+            <td ng-bind="user.id"></td>
+            <td ng-bind="user.name"></td>
+            <td ng-bind="user.email"></td>
             <td>
                 <a ui-sref=".edit({id: user.id})" ng-click="basic.formVisibility = true; " class="btn btn-info" role="button">Update</a>
                 <a ng-click="basic.delete(user)" class="btn btn-info" role="button">Delete</a>
